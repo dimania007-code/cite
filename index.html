@@ -2,9 +2,22 @@
 <html lang='ru'>
 <head>
     <meta charset="UTF-8">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+    
+      .fullscreen-img {
+        width: 100vw;      /* растягивает на всю ширину окна */
+        height: 100vh;     /* растягивает на всю высоту окна */
+        object-fit: cover; /* сохраняет пропорции, обрезая лишнее */
+      }
+    </style>
+    <img src="background/city.png" class="fullscreen-img" alt="Город">
 </head>
 <body>
-  <img src="background/city.png" width="1700" height="910">
 </body>
 <script>
 //git add .
