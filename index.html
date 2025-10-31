@@ -32,6 +32,29 @@
       justify-content: center;
       align-items: center;
       background-color: #222; /* просто для контраста */
+    }#resultModal .modal-content {
+     background: #fff;
+     border-radius: 10px;
+     text-align: center;
+     width: 400px;
+      height: auto;
+      padding: 20px;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }#closeResult {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+     padding: 10px 20px;
+    font-family: 'PakenhamBlItalic', serif;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    }#resultText {
+    font-size: 18px;
+    margin: 15px 0;
+    }#resultTitle {
+    font-size: 24px;
+    margin-bottom: 10px;
     }
       .mybutton {
         width: 40px;
@@ -315,8 +338,14 @@
 </div>
 </div>
 </div>
-</body>
+<div class="modal" id="resultModal">
+  <div class="modal-content">
+    <h2 id="resultTitle">Результат</h2>
+    <p id="resultText"></p>
+  </div>
+</div></body>
 <script>
+  let Incorrect = 0
   const btn1 = document.querySelector('.btn1');
   const btn2 = document.querySelector('.btn2')
   const btn3 = document.querySelector('.btn3')
@@ -405,6 +434,22 @@
           }else if (button === btn12) {
             btn13.disabled = false;
             btn13.style.backgroundImage = 'url("buttons/button_incompleted.png")'
+          }else if (button === btn13) {
+            const resultModal = document.getElementById('resultModal');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultText = document.getElementById('resultText');
+            const closeResult = document.getElementById('closeResult');
+            if (Incorrect >= 2) {
+              resultTitle.textContent = "Увы и увы!"
+              resultText.textContent = `количество ошибок аш ${Incorrect}, позор!`
+            }else {
+              resultTitle.textContent = "Признаяся, что списал"
+              resultText.textContent = `количество ошибок: ${Incorrect}, могло бы быть и лучше.`
+            }
+            resultModal.style.display = 'flex'
+            resultModal.addEventListener('click', e => {
+            if (e.target === resultModal) resultModal.style.display = 'none';
+            });
           }
         if (button === btn1) {
         btn2.disabled = false;
@@ -419,6 +464,7 @@
         answerBtn.textContent = 'Неверно';
         answerBtn.style.color = 'pink'
         answerBtn.style.background = 'red'
+        Incorrect += 1
       }
     })
       });
