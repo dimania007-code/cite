@@ -78,59 +78,71 @@
         transform: scale(1.05);
       }.mybutton:active:enabled {
         transform: scale(0.9);
-      }
-      .btn1 {
-        top: 60px;
-        left: 174px;
-      }.btn2 {
-      top: 335px;
-      left: 174px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn3 {
-      top: 578px;
-      left: 174px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn4 {
-      top: 728px;
-      left: 543px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn5 {
-      top: 675px;
-      left: 905px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn6 {
-      top: 578px;
-      left: 543px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn7 {
-      top: 335px;
-      left: 543px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn8 {
-      top: 180px;
-      left: 543px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn9 {
-      top: 60px;
-      left: 543px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn10 {
-      top: 60px;
-      left: 905px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn11 {
-      top: 58px;
-      left: 1500px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn12 {
-      top: 580px;
-      left: 1587px;
-      background-image: url('buttons/button_disabled.png');
-     }.btn13 {
-      top: 722px;
-      left: 1700px;
-      background-image: url('buttons/button_disabled.png');
-     }
+      }  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222;
+  }
+
+  .scene {
+    position: relative;
+    width: 90vw;            /* фон растягивается относительно окна */
+    max-width: 1920px;      /* максимум 1920px */
+    aspect-ratio: 1920 / 1080; /* чтобы сохранялись пропорции */
+  }
+
+  .scene img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* все кнопки помещаем внутрь .scene */
+  .mybutton {
+    position: absolute;
+    width: 2.2%;
+    aspect-ratio: 40/37;
+    background-image: url("buttons/button_incompleted.png");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'PakenhamBlItalic', serif;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px black;
+    transition: transform 0.2s;
+  }
+
+  .mybutton:hover:enabled {
+    background-image: url("buttons/button_alert.png");
+    transform: scale(1.1);
+  }
+
+  .mybutton:disabled {
+    background-image: url('buttons/button_disabled.png');
+    cursor: default;
+  }
+
+  /* координаты в процентах относительно фона */
+  .btn1  { top: 7%; left: 9.8%; }
+  .btn2  { top: 40%;  left: 9.8%; }
+  .btn3  { top: 69.4%;  left: 9.8%; }
+  .btn4  { top: 87.4%; left: 30.8%; }
+  .btn5  { top: 77%; left: 51.5%; }
+  .btn6  { top: 69.4%;  left: 30.8%; }
+  .btn7  { top: 40%;  left: 30.8%; }
+  .btn8  { top: 30%;  left: 30.8%; }
+  .btn9  { top: 7%; left: 30.8%; }
+  .btn10 { top: 7%; left: 51.5%; }
+  .btn11 { top: 6.8%; left: 78%; }
+  .btn12 { top: 70%;  left: 90.2%; }
+  .btn13 { top: 86.6%;  left: 95%; }
       .modal-content {
         background: white;
         padding: 20px;
@@ -443,7 +455,7 @@
               resultTitle.textContent = "Увы и увы!"
               resultText.textContent = `количество ошибок аш ${Incorrect}, позор!`
             }else {
-              resultTitle.textContent = "Признаяся, что списал"
+              resultTitle.textContent = "Признайся, что списал"
               resultText.textContent = `количество ошибок: ${Incorrect}, могло бы быть и лучше.`
             }
             resultModal.style.display = 'flex'
