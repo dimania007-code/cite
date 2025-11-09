@@ -1,66 +1,74 @@
 <!DOCTYPE html>
-<html lang='ru'>
-<head>
-    <meta charset="UTF-8">
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
     <style>
       @font-face {
-     font-family: 'PakenhamBlItalic';
-     src: url('fonts/PakenhamBl-Italic.ttf') format('truetype');
-     font-weight: bold;
-     font-style: italic;
-    }
-      html, body {
+        font-family: "PakenhamBlItalic";
+        src: url("fonts/PakenhamBl-Italic.ttf") format("truetype");
+        font-weight: bold;
+        font-style: italic;
+      }
+      html,
+      body {
         margin: 0;
         padding: 0;
         height: 100%;
         object-fit: cover; /* сохраняет пропорции */
         z-index: 0;
       }
-    
+
       .fullscreen-img {
-        width: 100vw;      /* растягивает на всю ширину окна */
-        height: 100vh;     /* растягивает на всю высоту окна */
-         /* сохраняет пропорции, обрезая лишнее */
+        /* растягивает на всю ширину окна */
+        height: 100vh;
+        width: 100vw;
+        display: flex; /* растягивает на всю высоту окна */
+        /* сохраняет пропорции, обрезая лишнее */
       }
     </style>
     <style>
-          body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #222; /* просто для контраста */
-    }#resultModal .modal-content {
-     background: #fff;
-     border-radius: 10px;
-     text-align: center;
-     width: 400px;
-      height: auto;
-      padding: 20px;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    }#closeResult {
-    background-color: #ff0000;
-    color: white;
-    border: none;
-     padding: 10px 20px;
-    font-family: 'PakenhamBlItalic', serif;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    }#resultText {
-    font-size: 18px;
-    margin: 15px 0;
-    }#resultTitle {
-    font-size: 24px;
-    margin-bottom: 10px;
-    }
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #resultModal .modal-content {
+        background: #fff;
+        border-radius: 10px;
+        text-align: center;
+        width: 400px;
+        height: auto;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+      #closeResult {
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-family: "PakenhamBlItalic", serif;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      #resultText {
+        font-size: 18px;
+        margin: 15px 0;
+      }
+      #resultTitle {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
       .mybutton {
         width: 40px;
         height: 37px;
         background-image: url("buttons/button_incompleted.png");
         background-size: cover;
+        object-fit: cover;
+        display: flex;
         background-position: center;
         color: black;
         border: none;
@@ -68,418 +76,601 @@
         cursor: pointer;
         position: absolute;
         z-index: 1; /*поверх фона*/
-        font-family: 'PakenhamBlItalic', serif;
+        font-family: "PakenhamBlItalic", serif;
         font-size: 16px;
         color: rgb(255, 255, 255);
-       text-shadow: 1px 1px 2px black;
-       letter-spacing: 0.5px;
-      }.mybutton:hover:enabled {
+        text-shadow: 1px 1px 2px black;
+        letter-spacing: 0.5px;
+      }
+      .mybutton:hover:enabled {
         background-image: url("buttons/button_alert.png");
         transform: scale(1.05);
-      }.mybutton:active:enabled {
+      }
+      .mybutton:active:enabled {
         transform: scale(0.9);
-      }  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #222;
-  }
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222;
+      }
 
-  .scene {
-    position: relative;
-    width: 90vw;            /* фон растягивается относительно окна */
-    max-width: 1920px;      /* максимум 1920px */
-    aspect-ratio: 1920 / 1080; /* чтобы сохранялись пропорции */
-  }
+      .scene {
+        position: relative;
+        width: 90vw; /* фон растягивается относительно окна */
+        max-width: 1920px; /* максимум 1920px */
+        aspect-ratio: 1920 / 1080; /* чтобы сохранялись пропорции */
+      }
 
-  .scene img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
+      .scene img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
 
-  /* все кнопки помещаем внутрь .scene */
-  .mybutton {
-    position: absolute;
-    width: 2.2%;
-    aspect-ratio: 40/37;
-    background-image: url("buttons/button_incompleted.png");
-    background-size: cover;
-    background-position: center;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-family: 'PakenhamBlItalic', serif;
-    font-size: 16px;
-    text-shadow: 1px 1px 2px black;
-    transition: transform 0.2s;
-  }
+      /* все кнопки помещаем внутрь .scene */
+      .mybutton {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-image: url("buttons/button_incompleted.png");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-family: "PakenhamBlItalic", serif;
+        font-size: 70%;
+        text-shadow: 1px 1px 2px black;
+        transition: transform 0.2s;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+      }
 
-  .mybutton:hover:enabled {
-    background-image: url("buttons/button_alert.png");
-    transform: scale(1.1);
-  }
+      .mybutton:hover:enabled {
+        background-image: url("buttons/button_alert.png");
+        transform: scale(1.1);
+      }
 
-  .mybutton:disabled {
-    background-image: url('buttons/button_disabled.png');
-    cursor: default;
-  }
+      .mybutton:disabled {
+        background-image: url("buttons/button_disabled.png");
+        cursor: default;
+      }
 
-  /* координаты в процентах относительно фона */
-  .btn1  { top: 7%; left: 9.8%; }
-  .btn2  { top: 40%;  left: 9.8%; }
-  .btn3  { top: 69.4%;  left: 9.8%; }
-  .btn4  { top: 87.4%; left: 30.8%; }
-  .btn5  { top: 77%; left: 51.5%; }
-  .btn6  { top: 69.4%;  left: 30.8%; }
-  .btn7  { top: 40%;  left: 30.8%; }
-  .btn8  { top: 30%;  left: 30.8%; }
-  .btn9  { top: 7%; left: 30.8%; }
-  .btn10 { top: 7%; left: 51.5%; }
-  .btn11 { top: 6.8%; left: 78%; }
-  .btn12 { top: 70%;  left: 90.2%; }
-  .btn13 { top: 86.6%;  left: 95%; }
+      /* координаты в процентах относительно фона */
+      .btn1 {
+        top: 7%;
+        left: 9.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn2 {
+        top: 40%;
+        left: 9.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn3 {
+        top: 69.4%;
+        left: 9.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn4 {
+        top: 87.4%;
+        left: 30.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn5 {
+        top: 77%;
+        left: 51.5%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn6 {
+        top: 69.4%;
+        left: 30.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn7 {
+        top: 40%;
+        left: 30.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn8 {
+        top: 30%;
+        left: 30.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn9 {
+        top: 7%;
+        left: 30.8%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn10 {
+        top: 7%;
+        left: 51.5%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn11 {
+        top: 6.8%;
+        left: 78%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn12 {
+        top: 70%;
+        left: 90.2%;
+        width: 1.8%;
+        height: 4.6%;
+      }
+      .btn13 {
+        top: 86.6%;
+        left: 95%;
+        width: 1.8%;
+        height: 4.6%;
+      }
       .modal-content {
         background: white;
         padding: 20px;
         border: none;
         text-align: center;
-        width:500px;   
-        height:400px;
-      }.mybutton:disabled {
-        background-image: url('buttons/button_disabled.png')
+        width: 50%;
+        height: auto;
+        border-radius: 30px;
+      }
+      .mybutton:disabled {
+        background-image: url("buttons/button_disabled.png");
       }
       .answers {
-      display: flex;
-      flex-direction: column; /* расположение сверху вниз */
-      align-items: flex-start; /* прижать к левой стороне */
-      margin-top: 15px;
-      }.answers button {
-        text-align: left;      /* выравнивание текста по левому краю */
-         justify-content: flex-start; /* чтобы сам текст тоже смещался влево, если используется flex */
-         width: 100%;           /* чтобы кнопки были шириной во всю строку (по желанию) */
-        padding-left: 10px
-      }.modal-content:button {
-        display:block;
-        margin:10px auto;
+        display: flex;
+        flex-direction: column; /* расположение сверху вниз */
+        align-items: flex-start; /* прижать к левой стороне */
+        margin-top: 15px;
+      }
+      .answers button {
+        text-align: left; /* выравнивание текста по левому краю */
+        justify-content: flex-start; /* чтобы сам текст тоже смещался влево, если используется flex */
+        width: 100%; /* чтобы кнопки были шириной во всю строку (по желанию) */
+        padding-left: 10px;
+        margin-bottom: 0.5%;
+      }
+      .modal-content:button {
+        display: block;
+        margin: 10px auto;
         padding: 10px 20px;
         cursor: pointer;
-      }.modal {
+      }
+      .modal {
         display: none;
-        position:fixed;
-        top:0;
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         justify-content: center;
         align-items: center;
-        z-index: 2
-      }.modal-header {
-      text-align: center;
-    }
-
-    .modal-header img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      display: block;
-      margin: 0 auto 10px;
-    }
-    </style>
-</head>
-<body>
-  <img src="background/city.png" class="fullscreen-img" alt="Город">
-  <button class="mybutton btn2" data-modal="quizModal2" disabled>2</button>
-  <button class="mybutton btn1" data-modal="quizModal1">1</button>
-  <button class="mybutton btn3" data-modal="quizModal3" disabled>3</button>
-  <button class="mybutton btn4" data-modal="quizModal4" disabled>4</button>
-  <button class="mybutton btn5" data-modal="quizModal5" disabled>5</button>
-  <button class="mybutton btn6" data-modal="quizModal6" disabled>6</button>
-  <button class="mybutton btn7" data-modal="quizModal7" disabled>7</button>
-  <button class="mybutton btn8" data-modal="quizModal8" disabled>8</button>
-  <button class="mybutton btn9" data-modal="quizModal9" disabled>9</button>
-  <button class="mybutton btn10" data-modal="quizModal10" disabled>10</button>
-  <button class="mybutton btn11" data-modal="quizModal11" disabled>11</button>
-  <button class="mybutton btn12" data-modal="quizModal12" disabled>12</button>
-  <button class="mybutton btn13" data-modal="quizModal13" disabled>13</button>
-  <div class="modal" id="quizModal3">
-    <div class="modal-content">
-      <img  src="Questions/crosses/cross3.png" width="490" height="200">
-      <h4>Вы намерены остановиться сразу за перекрёстком. в каком месте необходимо включить указатели правого поворота?</h>
-  <div class="answers">
-    <button>1. До вьезда на перекрёсток, чтобы заблаговременно предупредить других водителей об остановке.</button>
-    <button data-correct="true">2. Только после вьезда на перекрёсток.</button>
-    <button>3. Место включения указателей поворота не имеет значения, так как поворот направо запрещён.</button>
-  </div>
-  </div>
-</div>
-  <div class="modal" id="quizModal2">
-    <div class="modal-content">
-      <img  src="Questions/crosses/cross2.png" width="490" height="200">
-      <h4>Разрешается ли Вам совершить обгон?</h4>
-  <div class="answers">
-    <button>1. Разрешается.</button>
-    <button>2. Разрешается, если при этом не будут созданы помехи другим участникам движения.</button>
-    <button data-correct="true">3. Запрещается</button>
-  </div>
-  </div>
-</div>
-  <div class="modal" id="quizModal9">
-    <div class="modal-content">
-      <img  src="Questions/forest/forest9.png" width="490" height="200">
-      <h4>С какой максимальной скоростью разрешается продолжить движение при буксировке неисправного механического транспортного средства?</h4>
-  <div class="answers">
-    <button data-correct="true">50 км/ч</button>
-    <button>2. 70 км/ч</button>
-    <button>3. 90 км/ч</button>
-  </div>
-  </div>
-</div>
-<div class="modal" id="quizModal4">
-  <div class="modal-content">
-    <img  src="Questions/crosses/cross4.png" width="490" height="200">
-    <h4>При выполнении какого манёвра водитель легкового автомобиля имеет преимущество в движении?</h4>
-<div class="answers">
-  <button >1. Только при повороте налево.</button>
-  <button>2. Только при развороте</button>
-  <button data-correct="true">3. При выполнении любого манёвра из перечисленных.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal5">
-  <div class="modal-content">
-    <img  src="Questions/long_ways/lw5.png" width="490" height="200">
-    <h4>Разрешается ли Вам поставить автомобиль на стоянку в указанном месте?</h4>
-<div class="answers">
-  <button>1. Разрешается.</button>
-  <button>2. Разрешается, если Вы проживаете рядом с этим местом.</button>
-  <button data-correct="true">3. Запрещается</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal6">
-  <div class="modal-content">
-    <img  src="Questions/crosses/cross6.png" width="490" height="200">
-    <h4>Вы намерены повернуть налево. Ваши действия?</h4>
-<div class="answers">
-  <button data-correct="true">1. Уступите дорогу трамваю, выполнив поворот с левой полосы.</button>
-  <button>2. Пропустите трамвай, перестройтесь на трамвайные пути попутного направления, после чего выполните поворот.</button>
-  <button>3. Проедете перекрёсток первым.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal7">
-  <div class="modal-content">
-    <img  src="Questions/crosses/cross7.png" width="490" height="200">
-    <h4>Кому вы обязаны уступить дорогу при движении в прямом направлении?</h4>
-<div class="answers">
-  <button>1. Только легковому автомобилю.</button>
-  <button>2. Только автобусу.</button>
-  <button data-correct="true">3. Обоим транспортным средствам.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal8">
-  <div class="modal-content">
-    <img  src="Questions/long_ways/lw8.png" width="490" height="200">
-    <h4>При съезде с дороги на прилегающую справа территорию Вы:</h4>
-<div class="answers">
-  <button>1. Пользуетесь преимуществом перед другими участниками движения.</button>
-  <button>2. Должны уступить торогу только пешеходам.</button>
-  <button>3. Должны уступить дорогу только велосипедисту.</button>
-  <button data-correct="true">4. Должны уступить дорогу пешеходам и велосипедисту.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal1">
-  <div class="modal-content">
-    <img  src="Questions/forest/forest1.png" width="490" height="200">
-    <h4>Кто из водителей нарушил правила остановки?</h4>
-<div class="answers">
-  <button>1. Оба.</button>
-  <button>2. Только водитель автомобиля А.</button>
-  <button>3. Только водитель автомобиля Б.</button>
-  <button data-correct="true">4. Никто не нарушил</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal10">
-  <div class="modal-content">
-    <img  src="Questions/forest/forest10.png" width="490" height="150">
-    <h4>При движении по двухполосной дороге за грузовым автомобилем у Вас появилась возможность совершить обгон. Ваши действия?</h4>
-<div class="answers">
-  <button>1. Максимально приблизтесь к обгоняемому автомобилю, затем перестройтесь на полосу встречного движения и завершите манёвр.</button>
-  <button data-correct="true">2. Перестройтесь на полосу встречного движения, после чего произведёте сближение с обгоняемым транспортным средством и завершите манёвр.</button>
-  <button>3. Допустимы оба варианта действий.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal11">
-  <div class="modal-content">
-    <img  src="Questions/forest/forest11.png" width="490" height="150">
-    <h2>В месте выезда из лесистого участка, где установлен знак "Боковой ветер", Вам следует:</h2>
-<div class="answers">
-  <button data-correct="true">1. Уменьшить скорость и быть готовым к возможному отклонению автомобиля от заднего курса.</button>
-  <button>2. Не изменяя скорости, сместиться ближе к центру дороги.</button>
-  <button>3. Не изменяя скорости, сместиться ближе к обочине.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal12">
-  <div class="modal-content">
-    <img  src="Questions/village/village12.png" width="490" height="200">
-    <h4>На коком расстоянии до скользкого участка дороги устанавливается данный знак в населённом пункте?</h4>
-<div class="answers">
-  <button>1. 150-300 м.</button>
-  <button data-correct="true">2. 50-100 м.</button>
-  <button>3. Непосредственно перед началом скользкого участка.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="quizModal13">
-  <div class="modal-content">
-    <h4>В каких из перечисленных случаев разрешается движение в населённыз пунктах со скоростью не более 20км/ч?</h4>
-<div class="answers">
-  <button>1. При движении в жилых зонах и на дворовых территориях</button>
-  <button>2. При движении в велосипедных зонах</button>
-  <button data-correct="true">3. Во всех перечисленных случаях.</button>
-</div>
-</div>
-</div>
-<div class="modal" id="resultModal">
-  <div class="modal-content">
-    <h2 id="resultTitle">Результат</h2>
-    <p id="resultText"></p>
-  </div>
-</div></body>
-<script>
-  let Incorrect = 0
-  const btn1 = document.querySelector('.btn1');
-  const btn2 = document.querySelector('.btn2')
-  const btn3 = document.querySelector('.btn3')
-  const btn4 = document.querySelector('.btn4')
-  const btn5 = document.querySelector('.btn5')
-  const btn6 = document.querySelector('.btn6')
-  const btn7 = document.querySelector('.btn7')
-  const btn8 = document.querySelector('.btn8')
-  const btn9 = document.querySelector('.btn9')
-  const btn10 = document.querySelector('.btn10')
-  const btn11 = document.querySelector('.btn11')
-  const btn12 = document.querySelector('.btn12')
-  const btn13 = document.querySelector('.btn13');
-  btn2.disabled = true
-  btn3.disabled = true
-  btn4.disabled = true
-  btn5.disabled = true
-  btn6.disabled = true
-  btn7.disabled = true
-  btn8.disabled = true
-  btn9.disabled = true
-  btn10.disabled = true
-  btn11.disabled = true
-  btn12.disabled = true
-  btn13.disabled = true
-  // Проверка локального хранилища при загрузке
-  // Настройка всех кнопок и их модалок
-  document.querySelectorAll('.mybutton').forEach(button => {
-    const modal = document.getElementById(button.dataset.modal);
-    const answers = modal.querySelectorAll('.answers button');
-  
-    // Открытие модалки
-    button.addEventListener('click', () => {
-      if (!button.disabled) modal.style.display = 'flex';
-    });
-  
-    // Закрытие при клике на фон
-    modal.addEventListener('click', e => {
-      if (e.target === modal) modal.style.display = 'none';
-    });
-  
-    // Обработка ответов
-    answers.forEach(answerBtn => {
-      answerBtn.addEventListener('click', () => {
-        if (answerBtn.dataset.correct === "true") {
-          //modal.style.display = 'none';
-          button.style.backgroundImage = "url('buttons/button_completed.png')";
-          answerBtn.style.background = 'lightgreen'
-          answerBtn.textContent = 'Верно'
-  
-          // Если это кнопка 1 — разблокировать кнопку 2
-          if (button === btn1) {
-            btn2.disabled = false;
-            btn2.style.backgroundImage = "url('buttons/button_incompleted.png')"; // красная
-            localStorage.setItem('btn2Unlocked', 'true');
-          } else if (button === btn2) {
-            btn3.disabled = false;
-            btn3.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          } else if (button === btn3) {
-            btn4.disabled = false;
-            btn4.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          }else if (button === btn4) {
-            btn5.disabled = false;
-            btn5.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          }else if (button === btn5) {
-            btn6.disabled = false;
-            btn6.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          }else if (button === btn6) {
-            btn7.disabled = false;
-            btn7.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          } else if (button === btn7) {
-            btn8.disabled = false;
-            btn8.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          }else if (button === btn8) {
-            btn9.disabled = false;
-            btn9.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          } else if (button === btn9) {
-            btn10.disabled = false;
-            btn10.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          }else if (button === btn10) {
-            btn11.disabled = false;
-            btn11.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          } else if (button === btn11) {
-            btn12.disabled = false;
-            btn12.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          }else if (button === btn12) {
-            btn13.disabled = false;
-            btn13.style.backgroundImage = 'url("buttons/button_incompleted.png")'
-          }else if (button === btn13) {
-            const resultModal = document.getElementById('resultModal');
-            const resultTitle = document.getElementById('resultTitle');
-            const resultText = document.getElementById('resultText');
-            const closeResult = document.getElementById('closeResult');
-            if (Incorrect >= 2) {
-              resultTitle.textContent = "Увы и увы!"
-              resultText.textContent = `количество ошибок аш ${Incorrect}, позор!`
-            }else {
-              resultTitle.textContent = "Признайся, что списал"
-              resultText.textContent = `количество ошибок: ${Incorrect}, могло бы быть и лучше.`
-            }
-            resultModal.style.display = 'flex'
-            resultModal.addEventListener('click', e => {
-            if (e.target === resultModal) resultModal.style.display = 'none';
-            });
-          }
-        if (button === btn1) {
-        btn2.disabled = false;
-         btn2.offsetHeight; // заставляем браузер "перерисовать"
-         btn2.style.backgroundImage = "url('buttons/button_incompleted.png')";
-        } else if (button === btn2) {
-         btn3.disabled = false;
-         btn3.offsetHeight;
-        btn3.style.backgroundImage = "url('buttons/button_incompleted.png')";
-        }
-      }else {
-        answerBtn.textContent = 'Неверно';
-        answerBtn.style.color = 'pink'
-        answerBtn.style.background = 'red'
-        Incorrect += 1
+        z-index: 2;
       }
-    })
+      .modal-header {
+        text-align: center;
+      }
+
+      .modal-header img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 10px;
+      }
+      @media (max-width: 768px) {
+        .content {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <img src="background/city.png" class="fullscreen-img" alt="Город" />
+    <button class="mybutton btn2" data-modal="quizModal2" disabled>2</button>
+    <button class="mybutton btn1" data-modal="quizModal1">1</button>
+    <button class="mybutton btn3" data-modal="quizModal3" disabled>3</button>
+    <button class="mybutton btn4" data-modal="quizModal4" disabled>4</button>
+    <button class="mybutton btn5" data-modal="quizModal5" disabled>5</button>
+    <button class="mybutton btn6" data-modal="quizModal6" disabled>6</button>
+    <button class="mybutton btn7" data-modal="quizModal7" disabled>7</button>
+    <button class="mybutton btn8" data-modal="quizModal8" disabled>8</button>
+    <button class="mybutton btn9" data-modal="quizModal9" disabled>9</button>
+    <button class="mybutton btn10" data-modal="quizModal10" disabled>10</button>
+    <button class="mybutton btn11" data-modal="quizModal11" disabled>11</button>
+    <button class="mybutton btn12" data-modal="quizModal12" disabled>12</button>
+    <button class="mybutton btn13" data-modal="quizModal13" disabled>13</button>
+    <div class="modal" id="quizModal3">
+      <div class="modal-content">
+        <img src="Questions/crosses/cross3.png" width="490" height="200" />
+        <h4>
+          Вы намерены остановиться сразу за перекрёстком. в каком месте
+          необходимо включить указатели правого поворота?
+        </h4>
+        <div class="answers">
+          <button>
+            1. До вьезда на перекрёсток, чтобы заблаговременно предупредить
+            других водителей об остановке.
+          </button>
+          <button data-correct="true">
+            2. Только после вьезда на перекрёсток.
+          </button>
+          <button>
+            3. Место включения указателей поворота не имеет значения, так как
+            поворот направо запрещён.
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal2">
+      <div class="modal-content">
+        <img src="Questions/crosses/cross2.png" width="490" height="200" />
+        <h4>Разрешается ли Вам совершить обгон?</h4>
+        <div class="answers">
+          <button>1. Разрешается.</button>
+          <button>
+            2. Разрешается, если при этом не будут созданы помехи другим
+            участникам движения.
+          </button>
+          <button data-correct="true">3. Запрещается</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal9">
+      <div class="modal-content">
+        <img src="Questions/forest/forest9.png" width="490" height="200" />
+        <h4>
+          C какой максимальной скоростью разрешается продолжить движение при
+          буксировке неисправного механического транспортного средства?
+        </h4>
+        <div class="answers">
+          <button data-correct="true">50 км/ч</button>
+          <button>2. 70 км/ч</button>
+          <button>3. 90 км/ч</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal4">
+      <div class="modal-content">
+        <img src="Questions/crosses/cross4.png" width="490" height="200" />
+        <h4>
+          При выполнении какого манёвра водитель легкового автомобиля имеет
+          преимущество в движении?
+        </h4>
+        <div class="answers">
+          <button>1. Только при повороте налево.</button>
+          <button>2. Только при развороте</button>
+          <button data-correct="true">
+            3. При выполнении любого манёвра из перечисленных.
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal5">
+      <div class="modal-content">
+        <img src="Questions/long_ways/lw5.png" width="490" height="200" />
+        <h4>
+          Разрешается ли Вам поставить автомобиль на стоянку в указанном месте?
+        </h4>
+        <div class="answers">
+          <button>1. Разрешается.</button>
+          <button>
+            2. Разрешается, если Вы проживаете рядом с этим местом.
+          </button>
+          <button data-correct="true">3. Запрещается</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal6">
+      <div class="modal-content">
+        <img src="Questions/crosses/cross6.png" width="490" height="200" />
+        <h4>Вы намерены повернуть налево. Ваши действия?</h4>
+        <div class="answers">
+          <button data-correct="true">
+            1. Уступите дорогу трамваю, выполнив поворот с левой полосы.
+          </button>
+          <button>
+            2. Пропустите трамвай, перестройтесь на трамвайные пути попутного
+            направления, после чего выполните поворот.
+          </button>
+          <button>3. Проедете перекрёсток первым.</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal7">
+      <div class="modal-content">
+        <img src="Questions/crosses/cross7.png" width="490" height="200" />
+        <h4>
+          Кому вы обязаны уступить дорогу при движении в прямом направлении?
+        </h4>
+        <div class="answers">
+          <button>1. Только легковому автомобилю.</button>
+          <button>2. Только автобусу.</button>
+          <button data-correct="true">3. Обоим транспортным средствам.</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal8">
+      <div class="modal-content">
+        <img src="Questions/long_ways/lw8.png" width="490" height="200" />
+        <h4>При съезде с дороги на прилегающую справа территорию Вы:</h4>
+        <div class="answers">
+          <button>
+            1. Пользуетесь преимуществом перед другими участниками движения.
+          </button>
+          <button>2. Должны уступить торогу только пешеходам.</button>
+          <button>3. Должны уступить дорогу только велосипедисту.</button>
+          <button data-correct="true">
+            4. Должны уступить дорогу пешеходам и велосипедисту.
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal1">
+      <div class="modal-content">
+        <img src="Questions/forest/forest1.png" width="490" height="200" />
+        <h4>Кто из водителей нарушил правила остановки?</h4>
+        <div class="answers">
+          <button>1. Оба.</button>
+          <button>2. Только водитель автомобиля А.</button>
+          <button>3. Только водитель автомобиля Б.</button>
+          <button data-correct="true">4. Никто не нарушил</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal10">
+      <div class="modal-content">
+        <img src="Questions/forest/forest10.png" width="490" height="150" />
+        <h4>
+          При движении по двухполосной дороге за грузовым автомобилем у Вас
+          появилась возможность совершить обгон. Ваши действия?
+        </h4>
+        <div class="answers">
+          <button>
+            1. Максимально приблизтесь к обгоняемому автомобилю, затем
+            перестройтесь на полосу встречного движения и завершите манёвр.
+          </button>
+          <button data-correct="true">
+            2. Перестройтесь на полосу встречного движения, после чего
+            произведёте сближение с обгоняемым транспортным средством и
+            завершите манёвр.
+          </button>
+          <button>3. Допустимы оба варианта действий.</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal11">
+      <div class="modal-content">
+        <img src="Questions/forest/forest11.png" width="490" height="150" />
+        <h2>
+          В месте выезда из лесистого участка, где установлен знак "Боковой
+          ветер", Вам следует:
+        </h2>
+        <div class="answers">
+          <button data-correct="true">
+            1. Уменьшить скорость и быть готовым к возможному отклонению
+            автомобиля от заднего курса.
+          </button>
+          <button>
+            2. Не изменяя скорости, сместиться ближе к центру дороги.
+          </button>
+          <button>3. Не изменяя скорости, сместиться ближе к обочине.</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal12">
+      <div class="modal-content">
+        <img src="Questions/village/village12.png" width="490" height="200" />
+        <h4>
+          На коком расстоянии до скользкого участка дороги устанавливается
+          данный знак в населённом пункте?
+        </h4>
+        <div class="answers">
+          <button>1. 150-300 м.</button>
+          <button data-correct="true">2. 50-100 м.</button>
+          <button>3. Непосредственно перед началом скользкого участка.</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="quizModal13">
+      <div class="modal-content">
+        <h4>
+          В каких из перечисленных случаев разрешается движение в населённыз
+          пунктах со скоростью не более 20км/ч?
+        </h4>
+        <div class="answers">
+          <button>
+            1. При движении в жилых зонах и на дворовых территориях
+          </button>
+          <button>2. При движении в велосипедных зонах</button>
+          <button data-correct="true">3. Во всех перечисленных случаях.</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="resultModal">
+      <div class="modal-content">
+        <h2 id="resultTitle">Результат</h2>
+        <p id="resultText"></p>
+      </div>
+    </div>
+    <div class="modal" id="introduction">
+      <div class="modal-content">
+        <h2>Здравствуйте!</h2>
+        <p>тестирование проходит с помощью заданий, открываемых нажатием на красные кнопки. Нажать на серую кнопку нельзя. Если вы хотите пересмотреть свой ответ к заданию, нажмите на кнопку с этим заданием. Что бы закрыть это окно или окно с заданием, кликните по заднему фону.</p>
+        <h2>Удачи!</h2>
+      </div>
+    </div>
+  </body>
+  <script>
+    const modal2 = document.getElementById("introduction");
+    window.addEventListener(
+      "load",
+      function () {
+        modal2.style.display = "flex";
+      },
+      false
+    );
+    modal2.addEventListener("click", (e) => {
+      if (e.target === modal2) modal2.style.display = "none";
+    });
+    let Incorrect = 0;
+    const btn1 = document.querySelector(".btn1");
+    const btn2 = document.querySelector(".btn2");
+    const btn3 = document.querySelector(".btn3");
+    const btn4 = document.querySelector(".btn4");
+    const btn5 = document.querySelector(".btn5");
+    const btn6 = document.querySelector(".btn6");
+    const btn7 = document.querySelector(".btn7");
+    const btn8 = document.querySelector(".btn8");
+    const btn9 = document.querySelector(".btn9");
+    const btn10 = document.querySelector(".btn10");
+    const btn11 = document.querySelector(".btn11");
+    const btn12 = document.querySelector(".btn12");
+    const btn13 = document.querySelector(".btn13");
+    btn2.disabled = true;
+    btn3.disabled = true;
+    btn4.disabled = true;
+    btn5.disabled = true;
+    btn6.disabled = true;
+    btn7.disabled = true;
+    btn8.disabled = true;
+    btn9.disabled = true;
+    btn10.disabled = true;
+    btn11.disabled = true;
+    btn12.disabled = true;
+    btn13.disabled = true;
+    // Проверка локального хранилища при загрузке
+    // Настройка всех кнопок и их модалок
+    document.querySelectorAll(".mybutton").forEach((button) => {
+      const modal = document.getElementById(button.dataset.modal);
+      const answers = modal.querySelectorAll(".answers button");
+
+      // Открытие модалки
+      button.addEventListener("click", () => {
+        if (!button.disabled) modal.style.display = "flex";
       });
-    });;
+
+      // Закрытие при клике на фон
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.style.display = "none";
+      });
+
+      // Обработка ответов
+      answers.forEach((answerBtn) => {
+        answerBtn.addEventListener("click", () => {
+          if (answerBtn.dataset.correct === "true") {
+            //modal.style.display = 'none';
+            button.style.backgroundImage =
+              "url('buttons/button_completed.png')";
+            answerBtn.style.background = "lightgreen";
+            answerBtn.textContent = "Верно";
+            answerBtn.style.width = "30%";
+
+            // Если это кнопка 1 — разблокировать кнопку 2
+            if (button === btn1) {
+              btn2.disabled = false;
+              btn2.style.backgroundImage =
+                "url('buttons/button_incompleted.png')"; // красная
+              localStorage.setItem("btn2Unlocked", "true");
+            } else if (button === btn2) {
+              btn3.disabled = false;
+              btn3.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn3) {
+              btn4.disabled = false;
+              btn4.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn4) {
+              btn5.disabled = false;
+              btn5.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn5) {
+              btn6.disabled = false;
+              btn6.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn6) {
+              btn7.disabled = false;
+              btn7.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn7) {
+              btn8.disabled = false;
+              btn8.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn8) {
+              btn9.disabled = false;
+              btn9.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn9) {
+              btn10.disabled = false;
+              btn10.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn10) {
+              btn11.disabled = false;
+              btn11.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn11) {
+              btn12.disabled = false;
+              btn12.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn12) {
+              btn13.disabled = false;
+              btn13.style.backgroundImage =
+                'url("buttons/button_incompleted.png")';
+            } else if (button === btn13) {
+              const resultModal = document.getElementById("resultModal");
+              const resultTitle = document.getElementById("resultTitle");
+              const resultText = document.getElementById("resultText");
+              const closeResult = document.getElementById("closeResult");
+              if (Incorrect >= 2) {
+                resultTitle.textContent = "Увы и увы!";
+                resultText.textContent = `количество ошибок аш ${Incorrect}, позор!`;
+              } else {
+                resultTitle.textContent = "Признайся, что списал";
+                resultText.textContent = `количество ошибок: ${Incorrect}, могло бы быть и лучше.`;
+              }
+              resultModal.style.display = "flex";
+              resultModal.addEventListener("click", (e) => {
+                if (e.target === resultModal)
+                  resultModal.style.display = "none";
+              });
+            }
+            if (button === btn1) {
+              btn2.disabled = false;
+              btn2.offsetHeight; // заставляем браузер "перерисовать"
+              btn2.style.backgroundImage =
+                "url('buttons/button_incompleted.png')";
+            } else if (button === btn2) {
+              btn3.disabled = false;
+              btn3.offsetHeight;
+              btn3.style.backgroundImage =
+                "url('buttons/button_incompleted.png')";
+            }
+          } else {
+            answerBtn.textContent = "НЕВЕРНО";
+            answerBtn.style.width = "30%";
+            answerBtn.style.color = "#F3E8EA";
+            answerBtn.style.background = "#FF4848";
+            Incorrect += 1;
+          }
+        });
+      });
+    });
   </script>
 </html>
