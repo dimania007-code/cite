@@ -11,19 +11,17 @@
       }
       html,
       body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        object-fit: cover; /* сохраняет пропорции */
-        z-index: 0;
+        margin: 0;    /* убираем отступы сверху и снизу*/
+        padding: 0; 
+        height: 100%;   /*растягиваем окно по высоте*/
+        object-fit: cover;  /*добавляем возможность менять высоту и ширину*/
+        z-index: 0;        /*опускаем фон на 0 слой, что бы все элементы показывались сверху*/          
       }
 
       .fullscreen-img {
-        /* растягивает на всю ширину окна */
-        height: 100vh;
+        height: 100vh; /* растягивает на всю ширину окна */
         width: 100vw;
-        display: flex; /* растягивает на всю высоту окна */
-        /* сохраняет пропорции, обрезая лишнее */
+        display: flex; /* позволяет менять размер изображения */
       }
     </style>
     <style>
@@ -283,7 +281,7 @@
     </style>
   </head>
   <body>
-    <img src="background/city.png" class="fullscreen-img" alt="Город" />
+    <img src="background/city.png" class="fullscreen-img" alt="Город" /> # находим изображение фона в папке проекта и добавляем её на сайт
     <button class="mybutton btn2" data-modal="quizModal2" disabled>2</button>
     <button class="mybutton btn1" data-modal="quizModal1">1</button>
     <button class="mybutton btn3" data-modal="quizModal3" disabled>3</button>
